@@ -11,9 +11,9 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="bg-gray-100 min-h-screen">
+      <div className="bg-gray-100 flex w-1/4 min-h-screen">
         <Navbar />
-        <div className="container mx-auto px-4 py-6">
+        <div className="w-3/4 ml-auto p-6">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

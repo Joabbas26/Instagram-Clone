@@ -1,16 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaHome, FaSearch, FaPlusSquare, FaHeart, FaUser } from 'react-icons/fa';
 
 const Navbar = () => {
   return (
-    <nav className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-2 flex justify-between items-center">
-        <Link to="/" className="text-xl font-bold text-gray-800">Instagram Clone</Link>
-        <div>
-          <Link to="/login" className="text-gray-800 px-3">Login</Link>
-          <Link to="/register" className="text-gray-800 px-3">Register</Link>
-          <Link to="/profile" className="text-gray-800 px-3">Profile</Link>
-          <Link to="/create-post" className="text-gray-800 px-3">Create Post</Link>
+    <nav className="bg-white shadow-md fixed top-0 left-0 h-full w-1/4 z-50">
+      <div className="flex flex-col items-center py-4 space-y-8">
+        {/* Instagram Logo */}
+        <Link to="/" className="mb-8">
+          <img src="/path/to/instagram-logo.png" alt="Instagram" className="h-8" />
+        </Link>
+
+        {/* Navigation Icons */}
+        <div className="flex flex-col space-y-8 text-gray-800">
+          <Link to="/">
+            <FaHome className="h-6 w-6" />
+          </Link>
+          <Link to="/search">
+            <FaSearch className="h-6 w-6" />
+          </Link>
+          <Link to="/create-post">
+            <FaPlusSquare className="h-6 w-6" />
+          </Link>
+          <Link to="/notifications">
+            <FaHeart className="h-6 w-6" />
+          </Link>
+          <Link to="/profile">
+            <FaUser className="h-6 w-6" />
+          </Link>
         </div>
       </div>
     </nav>
