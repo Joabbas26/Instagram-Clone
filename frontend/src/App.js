@@ -1,20 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Profile from './pages/Profile';
-import CreatePost from './pages/CreatePost';
+import Navbar from './components/Navbar.js';
+import Home from './pages/Home.js';
+import Login from './pages/Login.js';
+import Register from './pages/Register.js';
+import Profile from './pages/Profile.js';
+import CreatePost from './pages/CreatePost.js';
 import './App.css';
 
 function App() {
   return (
     <Router>
-      <div className="bg-gray-100 flex w-1/4 min-h-screen">
-        <Navbar />
-        <div className="w-3/4 ml-auto p-6">
-          <Routes>
+      <div className="bg-gray-100 flex h-screen">
+        <Navbar className="bg-gray-100"/>
+        <div className='w-full'>
+          <Routes className="w-4/5 ml-auto p-6">
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

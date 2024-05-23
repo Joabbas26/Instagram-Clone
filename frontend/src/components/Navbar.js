@@ -4,11 +4,11 @@ import { FaHome, FaSearch, FaPlusSquare, FaHeart, FaUser } from 'react-icons/fa'
 
 const Navbar = () => {
   return (
-    <nav className="bg-white shadow-md fixed top-0 left-0 h-full w-1/4 z-50">
-      <div className="flex flex-col items-center py-4 space-y-8">
+    <nav className="bg-white shadow-md h-full z-50">
+      <div className="flex flex-col items-center py-4">
         {/* Instagram Logo */}
         <Link to="/" className="mb-8">
-          <img src="/path/to/instagram-logo.png" alt="Instagram" className="h-8" />
+          <img src="../assets/instagram-logo.png" alt="Instagram" className="h-8" />
         </Link>
 
         {/* Navigation Icons */}
