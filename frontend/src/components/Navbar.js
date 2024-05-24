@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className="flex flex-col items-center py-4">
         {/* Instagram Logo */}
         <Link to="/" className="mb-8">
-          <img src="../assets/instagram-logo.png" alt="Instagram" className="h-8" />
+          <img src="../assets/instagram-logo.png" alt="Instagram"/>
         </Link>
 
         {/* Navigation Icons */}
