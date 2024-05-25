@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaSearch, FaPlusSquare, FaHeart, FaUser } from 'react-icons/fa';
+import logo from '../assets/instagram-logo.png'
 
 const Navbar = () => {
   return (
     <nav className="bg-white shadow-md h-full z-50">
-      <div className="flex flex-col items-center py-4">
+      <div className="flex flex-col items-center p-4">
         {/* Instagram Logo */}
         <Link to="/" className="mb-8">
-          <img src="../assets/instagram-logo.png" alt="Instagram"/>
+          <img src={logo} alt="Instagram" className='h-16'/>
         </Link>
 
         {/* Navigation Icons */}

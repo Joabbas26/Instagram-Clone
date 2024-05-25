@@ -5,7 +5,9 @@ import Home from './pages/Home.js';
 import Login from './pages/Login.js';
 import Register from './pages/Register.js';
 import Profile from './pages/Profile.js';
+import Search from './pages/Search.js';
 import CreatePost from './pages/CreatePost.js';
+import Notifications from './pages/Notifications.js';
 import './App.css';
 
 function App() {
@@ -18,8 +20,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/notifications" element={<Notifications />} />
           </Routes>
         </div>
       </div>
