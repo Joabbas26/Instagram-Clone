@@ -2,11 +2,11 @@ import React from 'react';
 
 const Home = () => {
   return (
-    <div>
+    <div className='w-full'>
       {/* Main content */}
-      <div className="max-w-5xl mx-auto pt-4 flex">
+      <div className="flex flex-col items-center">
         {/* Feed */}
-        <div className="w-8/12">
+        <div className="w-full flex flex-col items-center mx-8">
           {/* Stories */}
           <div className="bg-white p-4 mb-4 rounded-lg shadow-sm">
             <div className="flex space-x-4">
@@ -23,9 +23,9 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Posts */}
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="bg-white mb-4 rounded-lg shadow-sm">
+           {/* Posts */}
+           {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="bg-white mb-4 rounded-lg shadow-sm w-1/2">
               <div className="p-4 flex justify-between items-center">
                 <div className="flex items-center space-x-2">
                   <img

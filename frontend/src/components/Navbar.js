@@ -5,29 +5,31 @@ import logo from '../assets/instagram-logo.png'
 
 const Navbar = () => {
   return (
-    <nav className="bg-white shadow-md h-full z-50">
-      <div className="flex flex-col items-center p-4">
-        {/* Instagram Logo */}
-        <Link to="/" className="mb-8">
+    <nav className="bg-gray-100 shadow-md h-full">
+      {/* Instagram Logo */}
+      <Link to="/" className="my-8 flex flex-col items-center py-8 px-4">
           <img src={logo} alt="Instagram" className='h-16'/>
         </Link>
+        
+        <div className="flex flex-col items-center py-8 px-4 content-center">
+        
 
         {/* Navigation Icons */}
         <div className="flex flex-col space-y-8 text-gray-800">
           <Link to="/">
-            <FaHome className="h-6 w-6" />
+            <FaHome className="h-8 w-8" />
           </Link>
           <Link to="/search">
-            <FaSearch className="h-6 w-6" />
+            <FaSearch className="h-8 w-8" />
           </Link>
           <Link to="/create-post">
-            <FaPlusSquare className="h-6 w-6" />
+            <FaPlusSquare className="h-8 w-8" />
           </Link>
           <Link to="/notifications">
-            <FaHeart className="h-6 w-6" />
+            <FaHeart className="h-8 w-8" />
           </Link>
           <Link to="/profile">
-            <FaUser className="h-6 w-6" />
+            <FaUser className="h-8 w-8" />
           </Link>
         </div>
       </div>

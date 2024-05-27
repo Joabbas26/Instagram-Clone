@@ -6,10 +6,12 @@ module.exports = {
       'plugin:react/recommended',
       'plugin:react-hooks/recommended'
     ],
-    "plugins": ["react"],
+    parser: '@babel/eslint-parser',
     parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
     settings: { react: { version: '18.2' } },
-    plugins: ['react-refresh',
+    plugins: [
+    'react',
+    'react-refresh',
     'react/recommended'],
     "rules": {
       "react/react-in-jsx-scope": "error",
@@ -19,6 +21,7 @@ module.exports = {
           "varsIgnorePattern": "React"
         }
       ],
+      'react/prop-types': 'off',
       "react/jsx-uses-react": "error",   
      "react/jsx-uses-vars": "error" ,
       'react-refresh/only-export-components': [

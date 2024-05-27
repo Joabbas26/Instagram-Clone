@@ -13,10 +13,9 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="bg-gray-100 flex h-screen">
-        <Navbar className="bg-gray-100"/>
-        <div className='w-full'>
-          <Routes className="w-4/5 ml-auto p-6">
+      <div className="bg-gray-100 flex h-screen w-full">
+        <Navbar className="w-1/5"/>
+          <Routes className="w-4/5">
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -25,7 +24,6 @@ function App() {
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/notifications" element={<Notifications />} />
           </Routes>
-        </div>
       </div>
     </Router>
   );
