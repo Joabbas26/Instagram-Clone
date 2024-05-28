@@ -13,7 +13,7 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="bg-gray-100 flex h-screen w-full">
+      <div className="bg-gray-100 flex w-full">
         <Navbar className="w-1/5"/>
           <Routes className="w-4/5">
             <Route path="/" element={<Home />} />
