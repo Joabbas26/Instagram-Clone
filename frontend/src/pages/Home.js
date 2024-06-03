@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faBookmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -44,7 +44,7 @@ const Home = () => {
 
            {/* Posts */}
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="bg-white mb-4 rounded-lg shadow-sm w-3/4 mx-auto">
+            <div key={i} className="bg-white mb-4 rounded-lg shadow-sm md:w-3/4 mx-auto">
               <div className="p-4 flex justify-between items-center">
                 <div className="flex items-center space-x-2">
                   <img

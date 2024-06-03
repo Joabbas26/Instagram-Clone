@@ -7,8 +7,6 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Handle registration logic here
-    console.log('Register:', { username, email, password });
   };
 
   return (

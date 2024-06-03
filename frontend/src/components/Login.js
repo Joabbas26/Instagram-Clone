@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -6,8 +7,6 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login:', { email, password });
   };
 
   return (
@@ -47,7 +46,8 @@ const Login = () => {
           </div>
         </form>
         <p className="text-center text-gray-600 mt-4">
-          Don't have an account? <a href="/signup" className="text-blue-500">Sign up</a>
+          Dont have an account
+        <Link to="/signup" className="text-blue-500">Sign up</Link>
         </p>
       </div>
     </div>
