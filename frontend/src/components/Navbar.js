@@ -13,7 +13,7 @@ const Navbar = () => {
         <li className='hidden lg:block'>
           {/* Instagram Logo */}
         <Link to="/">
-          <FontAwesomeIcon icon={faInstagram} className='h-10 w-10 lg:h-14 lg:w-14'/>
+          <FontAwesomeIcon icon={faInstagram} className='h-10 w-10 lg:h-14 lg:w-148'/>
           {/* <img src={logo} alt="Instagram" className='h-10 w-12 lg:h-20 lg:w-16'/> */}
         </Link>
         </li>

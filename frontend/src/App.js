@@ -8,6 +8,7 @@ import Profile from './pages/Profile.js';
 import Search from './pages/Search.js';
 import CreatePost from './pages/CreatePost.js';
 import Notifications from './pages/Notifications.js';
+import NotFoundPage from './components/NotFoundPage.js';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path='/notFound' element={<NotFoundPage/>}/>
           </Routes>
       </div>
     </Router>
