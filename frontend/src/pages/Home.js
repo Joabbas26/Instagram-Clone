@@ -44,7 +44,7 @@ const Home = () => {
 
            {/* Posts */}
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="bg-white mb-4 rounded-lg shadow-sm md:w-3/4 mx-auto">
+            <div key={i} className="bg-white mb-4 rounded-lg shadow-sm mx-auto">
               <div className="p-4 flex justify-between items-center">
                 <div className="flex items-center space-x-2">
                   <img
@@ -67,7 +67,7 @@ const Home = () => {
                     <span
                       onClick={() => handleHeartClick(i)}
                       className={`cursor-pointer ${
-                        isHeartClicked[i] ? 'text-red-500' : 'text-white'
+                        isHeartClicked[i] ? 'text-red-500' : 'text-gray-400'
                       }`}
                     >
                       <FontAwesomeIcon icon={faHeart} />
@@ -76,7 +76,7 @@ const Home = () => {
                   <span
                     onClick={() => handleBookmarkClick(i)}
                     className={`cursor-pointer ${
-                      isBookmarkClicked[i] ? 'text-red-500' : 'text-white'
+                      isBookmarkClicked[i] ? 'text-red-500' : 'text-gray-400'
                     }`}
                   >
                     <FontAwesomeIcon icon={faBookmark} />

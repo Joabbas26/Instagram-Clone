@@ -14,9 +14,10 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="bg-gray-100 flex w-full">
-        <Navbar className="w-1/5"/>
-          <Routes className="w-4/5">
+      <div className="bg-gray-100 flex flex-col lg:flex-row min-h-screen">
+          <Navbar />
+        <div className="flex-1">
+        <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -26,6 +27,7 @@ function App() {
             <Route path="/notifications" element={<Notifications />} />
             <Route path='/notFound' element={<NotFoundPage/>}/>
           </Routes>
+        </div>
       </div>
     </Router>
   );
