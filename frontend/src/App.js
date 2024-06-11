@@ -14,9 +14,9 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="bg-gray-100 flex flex-col lg:flex-row min-h-screen">
+      <div className="bg-gray-100 lg:flex lg:flex-row min-h-screen">
           <Navbar />
-        <div className="flex-1">
+        <div className="flex-1 lg:ml-1/5">
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
