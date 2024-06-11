@@ -7,7 +7,7 @@ import logo from '../assets/instagram-logo.png'
 
 const Navbar = () => {
   return (
-    <nav className="bg-white fixed bottom-0 py-5 border border-gray-200 w-full flex justify-around lg:static lg:w-1/5 lg:h-screen lg:p-10 lg:flex lg:flex-col lg:justify-start lg:items-center shadow-lg">
+    <nav className="bg-white fixed bottom-0 py-5 border border-gray-200 w-full flex justify-around lg:static lg:w-1/5 lg:h-screen lg:p-10 lg:flex lg:flex-col lg:justify-start lg:items-center shadow-lg z-10">
       <ul className="flex justify-around w-full items-center lg:flex-col lg:space-y-8 lg:mt-8 lg:mx-6">
         {/* Navigation Icons */}
         <li className='flex-col items-center text-gray-800 hidden lg:block'>

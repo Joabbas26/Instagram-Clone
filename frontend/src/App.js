@@ -15,8 +15,8 @@ function App() {
   return (
     <Router>
       <div className="bg-gray-100 lg:flex lg:flex-row min-h-screen">
-          <Navbar />
-        <div className="flex-1 lg:ml-1/5">
+          <Navbar className="w-full md:w-1/5 lg:w-full" />
+        <div className="flex-1 lg:w-4/5 lg:overflow-x-hidden">
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

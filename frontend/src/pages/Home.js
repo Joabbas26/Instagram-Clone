@@ -21,13 +21,13 @@ const Home = () => {
 
 
   return (
-    <div className='w-full'>
+    <div className='max-w-full overflow-x-auto'>
       {/* Main content */}
       <div className="flex flex-col items-center">
         {/* Feed */}
-        <div className="w-full flex flex-col items-center mx-8">
+        <div className="w-screen flex flex-col items-center">
           {/* Stories */}
-          <div className="bg-white p-4 mb-4 rounded-lg shadow-sm w-full">
+          <div className="bg-white p-4 mb-4 rounded-lg shadow-sm w-full overflow-x-auto">
             <div className="flex space-x-4 overflow-x-auto whitespace-nowrap">
               {Array.from({ length: 10 }).map((_, i) => (
                 <div key={i} className="flex flex-col items-center w-20 flex-shrink-0">
@@ -44,7 +44,7 @@ const Home = () => {
 
            {/* Posts */}
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="bg-white mb-4 rounded-lg shadow-sm mx-auto">
+            <div key={i} className="bg-white mb-4 rounded-lg shadow-sm">
               <div className="p-4 flex justify-between items-center">
                 <div className="flex items-center space-x-2">
                   <img
