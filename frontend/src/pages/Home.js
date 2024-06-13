@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
 
   const [isHeartClicked, setIsHeartClicked] = useState(Array(5).fill(false));
-  const [isBookmarkClicked, setIsBookmarkClicked] = useState(Array(5).fill(false));
 
   const handleHeartClick = (index) => {
     const updatedHeartClicks = [...isHeartClicked];
     updatedHeartClicks[index] = !updatedHeartClicks[index];
     setIsHeartClicked(updatedHeartClicks);
-  };
-
-  const handleBookmarkClick = (index) => {
-    const updatedBookmarkClicks = [...isBookmarkClicked];
-    updatedBookmarkClicks[index] = !updatedBookmarkClicks[index];
-    setIsBookmarkClicked(updatedBookmarkClicks);
   };
 
 
@@ -25,22 +18,7 @@ const Home = () => {
       {/* Main content */}
       <div className="flex flex-col items-center">
         {/* Feed */}
-        <div className="w-screen flex flex-col items-center">
-          {/* Stories */}
-          <div className="bg-white p-4 mb-4 rounded-lg shadow-sm w-full overflow-x-auto">
-            <div className="flex space-x-4 overflow-x-auto whitespace-nowrap">
-              {Array.from({ length: 10 }).map((_, i) => (
-                <div key={i} className="flex flex-col items-center w-20 flex-shrink-0">
-                  <img
-                    src="https://via.placeholder.com/60"
-                    alt={`Story ${i}`}
-                    className="rounded-full border-2 border-red-500"
-                  />
-                  <span className="text-xs mt-2">User {i}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="w-screen flex flex-col items-center mt-6">
 
            {/* Posts */}
           {Array.from({ length: 5 }).map((_, i) => (
@@ -73,14 +51,7 @@ const Home = () => {
                       <FontAwesomeIcon icon={faHeart} />
                     </span>
                   </div>
-                  <span
-                    onClick={() => handleBookmarkClick(i)}
-                    className={`cursor-pointer ${
-                      isBookmarkClicked[i] ? 'text-red-500' : 'text-gray-400'
-                    }`}
-                  >
-                    <FontAwesomeIcon icon={faBookmark} />
-                  </span>
+
                 </div>
                 <div>
                   <span className="font-bold">User {i}</span>
