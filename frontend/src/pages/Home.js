@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faComment, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
 
   const [isHeartClicked, setIsHeartClicked] = useState(Array(5).fill(false));
+  const [showComments, setShowComments] = useState(Array(5).fill(false));
 
   const handleHeartClick = (index) => {
     const updatedHeartClicks = [...isHeartClicked];
     updatedHeartClicks[index] = !updatedHeartClicks[index];
     setIsHeartClicked(updatedHeartClicks);
+  };
+
+  const handleCommentClick = (index) => {
+    setShowComments((prevShowComments) => {
+      const newShowComments = [...prevShowComments];
+      newShowComments[index] = !newShowComments[index];
+      return newShowComments;
+    });
   };
 
 
@@ -32,7 +41,6 @@ const Home = () => {
                   />
                   <span className="font-bold">User {i}</span>
                 </div>
-                <span>⋮</span>
               </div>
               <img
                 src="https://via.placeholder.com/600x400"
@@ -50,20 +58,49 @@ const Home = () => {
                     >
                       <FontAwesomeIcon icon={faHeart} />
                     </span>
+                    <span
+                      onClick={() => handleCommentClick(i)}
+                      className="cursor-pointer text-gray-400"
+                    >
+                      <FontAwesomeIcon icon={faComment} />
+                    </span>
                   </div>
-
                 </div>
+                <span>{`${i} Likes`}</span>
                 <div>
                   <span className="font-bold">User {i}</span>
                   <span className="ml-2">This is an example caption for post {i}.</span>
                 </div>
-                <div className="text-gray-500 text-sm mt-2">View all 10 comments</div>
+                <p className="cursor-pointer underline text-gray-500 text-sm mt-2" 
+                onClick={() => handleCommentClick(i)}>
+                {showComments[i] ? 'Hide comments' : 'View all comments'}
+                </p>
+                {showComments[i] && (
+                  <div className="mt-2">
+                    {Array.from({ length: 10 }).map((_, index) => (
+                      <div key={index} className="flex items-start space-x-2 my-2">
+                        <img
+                          src="https://via.placeholder.com/30"
+                          alt={`Commenter ${index}`}
+                          className="rounded-full"
+                        />
+                        <div>
+                          <span className="font-bold">Commenter {index}</span>
+                          <span className="ml-2">This is a comment {index}.</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <div className="mt-2">
                   <input
                     type="text"
                     placeholder="Add a comment..."
-                    className="w-full bg-gray-100 p-2 rounded-lg text-sm"
+                    className="bg-gray-100 p-2 rounded-lg text-sm w-5/6"
                   />
+                  <button className='mx-3 text-gray-600'>
+                    <FontAwesomeIcon icon={faPaperPlane}/>
+                  </button>
                 </div>
               </div>
             </div>
