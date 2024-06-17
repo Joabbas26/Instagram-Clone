@@ -21,6 +21,10 @@ const Home = () => {
     });
   };
 
+  const handleComment = () => {
+    // handle comment functionality
+  }
+
 
   return (
     <div className='max-w-full overflow-x-auto'>
@@ -65,8 +69,8 @@ const Home = () => {
                       <FontAwesomeIcon icon={faComment} />
                     </span>
                   </div>
+                  <span>{`${i} Likes`}</span>
                 </div>
-                <span>{`${i} Likes`}</span>
                 <div>
                   <span className="font-bold">User {i}</span>
                   <span className="ml-2">This is an example caption for post {i}.</span>
@@ -96,9 +100,9 @@ const Home = () => {
                   <input
                     type="text"
                     placeholder="Add a comment..."
-                    className="bg-gray-100 p-2 rounded-lg text-sm w-5/6"
+                    className="bg-gray-100 p-2 rounded-lg text-sm w-10/12 md:w-11/12"
                   />
-                  <button className='mx-3 text-gray-600'>
+                  <button className='mx-3 text-gray-600' onClick={handleComment()}>
                     <FontAwesomeIcon icon={faPaperPlane}/>
                   </button>
                 </div>
