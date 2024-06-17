@@ -16,7 +16,7 @@ const Search = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-4 rounded-lg shadow-sm">
+    <div className="max-w-2xl mx-auto mt-6 bg-white p-4 rounded-lg shadow-sm">
       <form onSubmit={handleSearch} className="mb-4">
         <input
           type="text"

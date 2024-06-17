@@ -24,7 +24,7 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-4 rounded-lg shadow-sm">
+    <div className="max-w-2xl mx-auto mt-6 bg-white p-4 rounded-lg shadow-sm">
       <h2 className="text-xl font-bold mb-4">Create a new post</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">

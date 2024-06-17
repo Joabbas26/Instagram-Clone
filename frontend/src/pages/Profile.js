@@ -18,7 +18,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-sm">
+    <div className="max-w-4xl mx-auto mt-6 bg-white p-4 rounded-lg shadow-sm">
       <div className="flex items-center space-x-4 mb-4">
         <img
           src={user.profilePic}
@@ -34,15 +34,6 @@ const Profile = () => {
         <div>
           <span className="font-bold">{user.posts}</span> posts
         </div>
-        <div>
-          <span className="font-bold">{user.followers}</span> followers
-        </div>
-        <div>
-          <span className="font-bold">{user.following}</span> following
-        </div>
-      </div>
-      <div className="mb-4">
-        <p>{user.bio}</p>
       </div>
       <div className="grid grid-cols-3 gap-4">
         {user.postsData.map((post) => (

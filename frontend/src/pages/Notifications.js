@@ -30,7 +30,7 @@ const Notifications = () => {
   ];
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-4 rounded-lg shadow-sm">
+    <div className="max-w-2xl mx-auto mt-6 bg-white p-4 rounded-lg shadow-sm">
       <h2 className="text-xl font-bold mb-4">Notifications</h2>
       <ul>
         {notifications.map((notification) => (
