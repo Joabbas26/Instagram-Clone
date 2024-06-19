@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const CreatePost = () => {
   const [caption, setCaption] = useState('');
@@ -11,16 +12,26 @@ const CreatePost = () => {
     setPreview(URL.createObjectURL(file));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would handle the form submission to your backend
-    // For now, we'll just log the caption and image
-    console.log('Caption:', caption);
-    console.log('Image:', image);
-    // Clear form after submission
-    setCaption('');
-    setImage(null);
-    setPreview(null);
+    const formData = new FormData();
+    formData.append('caption', caption);
+    formData.append('image', image);
+
+    try {
+      const response = await axios.post('/api/posts', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(response.data);
+      // Clear form after submission
+      setCaption('');
+      setImage(null);
+      setPreview(null);
+    } catch (error) {
+      console.error('Error uploading the post:', error);
+    }
   };
 
   return (

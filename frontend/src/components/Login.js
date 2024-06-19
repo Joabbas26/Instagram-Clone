@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const history = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
+    try {
+      const response = await axios.post('/api/auth/login', { email, password });
+      localStorage.setItem('token', response.data.token);
+      history.push('/dashboard'); // Redirect to a protected route after login
+    } catch (err) {
+      setError('Invalid email or password');
+    }
   };
 
   return (
@@ -36,6 +47,7 @@ const Login = () => {
               required
             />
           </div>
+          {error && <div className="text-red-500 text-sm">{error}</div>}
           <div>
             <button
               type="submit"
@@ -46,8 +58,8 @@ const Login = () => {
           </div>
         </form>
         <p className="text-center text-gray-600 mt-4">
-          Dont have an account
-        <Link to="/signup" className="text-blue-500">Sign up</Link>
+          Dont have an account?{' '}
+          <Link to="/signup" className="text-blue-500">Sign up</Link>
         </p>
       </div>
     </div>
