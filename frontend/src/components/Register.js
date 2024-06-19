@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const history = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+
+    try {
+      const response = await axios.post('/api/users/register', { username, email, password });
+      localStorage.setItem('token', response.data.token);
+      history.push('/dashboard'); // Redirect to a protected route after registration
+    } catch (err) {
+      setError('Registration failed. Please try again.');
+    }
   };
 
   return (
@@ -47,6 +59,7 @@ const Register = () => {
               required
             />
           </div>
+          {error && <div className="text-red-500 text-sm">{error}</div>}
           <div>
             <button
               type="submit"
