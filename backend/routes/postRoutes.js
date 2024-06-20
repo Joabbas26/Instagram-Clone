@@ -17,6 +17,28 @@ const storage = multer.diskStorage({
   });
   
   const upload = multer({ storage });
+
+  // Get all posts
+router.get('/', async (req, res) => {
+  try {
+    const posts = await Post.find().populate('user', ['username']);
+    res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// Get posts by user
+router.get('/user/:userId', async (req, res) => {
+  try {
+    const posts = await Post.find({ user: req.params.userId }).populate('user', ['username']);
+    res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
   
   // Endpoint to handle post creation
   router.post('/', upload.single('image'), async (req, res) => {

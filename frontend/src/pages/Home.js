@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
@@ -6,6 +7,30 @@ const Home = () => {
 
   const [isHeartClicked, setIsHeartClicked] = useState(Array(5).fill(false));
   const [showComments, setShowComments] = useState(Array(5).fill(false));
+
+    // Dummy data for profile
+    const posts = {
+      user: 'John',
+      id: 1,
+      image: 'https://cdn.pixabay.com/photo/2023/08/08/10/50/hot-wheels-8177051_1280.jpg',
+      likes: 34,
+      comment: "This is a comment",
+      comments: 10,
+    };
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await axios.get('/api/posts');
+        // setPosts(res.data);
+        const Posts = res.data
+      } catch (err) {
+        console.error(err);
+        console.log(Posts)
+      }
+    };
+    fetchPosts();
+  }, []);
 
   const handleHeartClick = (index) => {
     const updatedHeartClicks = [...isHeartClicked];
@@ -27,70 +52,72 @@ const Home = () => {
 
 
   return (
-    <div className='max-w-full overflow-x-auto'>
+    <div className='flex justify-center items-center'>
       {/* Main content */}
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center md:w-1/2">
         {/* Feed */}
-        <div className="w-screen flex flex-col items-center mt-6">
+        <div className="flex flex-col items-center m-6">
 
            {/* Posts */}
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="bg-white mb-4 rounded-lg shadow-sm">
+          {posts.map((post) => (
+            <div key={post.id} className="bg-white mb-4 rounded-lg shadow-sm">
               <div className="p-4 flex justify-between items-center">
                 <div className="flex items-center space-x-2">
                   <img
-                    src="https://via.placeholder.com/40"
-                    alt={`User ${i}`}
-                    className="rounded-full"
+                    src={`${post.image}`}
+                    alt={`User ${post.user}`}
+                    className="rounded-full h-8 w-8"
                   />
-                  <span className="font-bold">User {i}</span>
+                  <span className="font-bold">{post.user.username}</span>
                 </div>
               </div>
-              <img
-                src="https://via.placeholder.com/600x400"
-                alt={`Post ${i}`}
-                className="w-full"
+              <div className='flex justify-center p-3'>
+                <img
+                src={`${post.image}`}
+                alt={`Post ${post.user}`}
+                className="h-1/3"
               />
+              </div>
               <div className="p-4">
                 <div className="flex justify-between items-center mb-2">
                   <div className="flex space-x-4">
                     <span
-                      onClick={() => handleHeartClick(i)}
+                      onClick={() => handleHeartClick(post.user.like)}
                       className={`cursor-pointer ${
-                        isHeartClicked[i] ? 'text-red-500' : 'text-gray-400'
+                        isHeartClicked[post.id] ? 'text-red-500' : 'text-gray-400'
                       }`}
                     >
                       <FontAwesomeIcon icon={faHeart} />
                     </span>
                     <span
-                      onClick={() => handleCommentClick(i)}
+                      onClick={() => handleCommentClick(post.comment)}
                       className="cursor-pointer text-gray-400"
                     >
                       <FontAwesomeIcon icon={faComment} />
                     </span>
                   </div>
-                  <span>{`${i} Likes`}</span>
+                  <span>{`${post.likes} Likes`}</span>
                 </div>
                 <div>
-                  <span className="font-bold">User {i}</span>
-                  <span className="ml-2">This is an example caption for post {i}.</span>
+                  <span className="font-bold">User {post.user}</span>
+                  <span className="ml-2">This is an example caption for post {post.caption}.</span>
                 </div>
                 <p className="cursor-pointer underline text-gray-500 text-sm mt-2" 
-                onClick={() => handleCommentClick(i)}>
-                {showComments[i] ? 'Hide comments' : 'View all comments'}
+                onClick={() => handleCommentClick(post.comment)}>
+                {showComments[post.comments] ? 'Hide comments' : 'View all comments'}
                 </p>
-                {showComments[i] && (
+                {showComments[post.comments] && (
                   <div className="mt-2">
-                    {Array.from({ length: 10 }).map((_, index) => (
+                    {Array.from({ length: 1 }).map((_, index) => (
                       <div key={index} className="flex items-start space-x-2 my-2">
                         <img
-                          src="https://via.placeholder.com/30"
+                          src="https://cdn.pixabay.com/photo/2023/08/08/10/50/hot-wheels-8177051_1280.jpg"
                           alt={`Commenter ${index}`}
-                          className="rounded-full"
+                          className="rounded-full h-1/6 w-1/5"
                         />
                         <div>
                           <span className="font-bold">Commenter {index}</span>
-                          <span className="ml-2">This is a comment {index}.</span>
+                          <span className="ml-2">{`${post.comment}`}</span>
                         </div>
                       </div>
                     ))}
