@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext.js';
 
 const CreatePost = () => {
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
+  const { isAuthenticated } = useContext(useAuth);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -14,25 +16,29 @@ const CreatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = new FormData();
     formData.append('caption', caption);
     formData.append('image', image);
 
     try {
-      const response = await axios.post('/api/posts', formData, {
+      const res = await axios.post('/api/posts', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'x-auth-token': localStorage.getItem('token'),
         },
       });
-      console.log(response.data);
+      console.log(res.data);  
+      } catch (err) {
+        console.error(err);
+      }
       // Clear form after submission
       setCaption('');
       setImage(null);
       setPreview(null);
-    } catch (error) {
-      console.error('Error uploading the post:', error);
-    }
   };
+
+  if (!isAuthenticated) return <div>Please log in to create a post</div>;
 
   return (
     <div className="max-w-2xl mx-auto mt-6 bg-white p-4 rounded-lg shadow-sm">

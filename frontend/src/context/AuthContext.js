@@ -1,37 +1,46 @@
-import React, { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import axios from "axios"
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decoded = jwtDecode(token);
-      setUser(decoded.user);
-    }
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get('/api/auth', {
+          headers: {
+            'x-auth-token': localStorage.getItem('token'),
+          },
+        });
+        setUser(res.data);
+        setIsAuthenticated(true);
+      } catch (err) {
+        console.error(err);
+        setIsAuthenticated(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkAuth();
   }, []);
 
-  const login = async (email, password) => {
-    const res = await axios.post('/api/users/login', { email, password });
-    localStorage.setItem('token', res.data.token);
-    const decoded = jwtDecode(res.data.token);
-    setUser(decoded.user);
+  const login = async () => {
+    setIsAuthenticated(true)
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
+    setIsAuthenticated(false)
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, user, loading }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export default AuthContext;
+export const useAuth = () => useContext(AuthContext);

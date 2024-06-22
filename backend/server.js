@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const multer = require('multer');
 const path = require('path');
 require('dotenv').config();
@@ -13,6 +14,7 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use(fileUpload());
 
 // Configure Multer for file uploads
 const storage = multer.diskStorage({

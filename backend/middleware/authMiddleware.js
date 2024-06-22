@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const auth = (req, res, next) => {
+module.exports = function (req, res, next) {
+  // Get token from header
   const token = req.header('x-auth-token');
 
   if (!token) {
@@ -8,12 +9,10 @@ const auth = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.VITE_JWT_SECRET);
     req.user = decoded.user;
     next();
   } catch (err) {
     res.status(401).json({ msg: 'Token is not valid' });
   }
 };
-
-module.exports = auth;

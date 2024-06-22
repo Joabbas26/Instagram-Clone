@@ -2,54 +2,68 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
+const auth = require('../middleware/authMiddleware');
 
 // Register route
-router.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
-
-  try {
-    // Check if the user already exists
-    let user = await User.findOne({ email });
-    if (user) {
-      return res.status(400).json({ msg: 'User already exists' });
+router.post(
+  '/register',
+  [
+    check('username', 'Username is required').not().isEmpty(),
+    check('email', 'Please include a valid email').isEmail(),
+    check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
-    // Create new user
-    user = new User({
-      username,
-      email,
-      password,
-    });
+    const { username, email, password } = req.body;
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
+    try {
+      let user = await User.findOne({ email });
 
-    // Save user to database
-    await user.save();
-
-    // Create payload for JWT
-    const payload = {
-      user: {
-        id: user.id,
-      },
-    };
-
-    // Sign JWT and send token to client
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
+      if (user) {
+        return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
       }
-    );
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
+
+      user = new User({
+        username,
+        email,
+        password,
+      });
+
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+
+      await user.save();
+
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+
+      jwt.sign(
+        payload,
+        process.env.JWT_SECRET,
+        { expiresIn: '5 days' },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
   }
+);
+
+router.get('/profile', auth, (req, res) => {
+  res.json({ msg: 'This is a protected route', user: req.user });
 });
 
 module.exports = router;

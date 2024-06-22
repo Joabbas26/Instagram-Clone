@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../context/AuthContext.js';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const history = useNavigate();
+  const [message, setMessage] = useState('');
 
   const { login } = useAuth();
 
@@ -15,11 +14,9 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/auth/login', { email, password });
-      localStorage.setItem('token', response.data.token);
-      history.push('/dashboard'); // Redirect to a protected route after login
+      await axios.post('/api/auth/login', { email, password });
     } catch (err) {
-      setError('Invalid email or password');
+      setMessage('Invalid email or password');
     }
 
     login(); // Call login after successful login
@@ -52,7 +49,7 @@ const Login = () => {
               required
             />
           </div>
-          {error && <div className="text-red-500 text-sm">{error}</div>}
+          {message && <div className="text-red-500 text-sm">{message}</div>}
           <div>
             <button
               type="submit"
@@ -63,8 +60,8 @@ const Login = () => {
           </div>
         </form>
         <p className="text-center text-gray-600 mt-4">
-          Dont have an account?
-          <Link to="/signup" className="text-blue-500">Sign up</Link>
+          Dont have an account? 
+          <Link to="/signup" className="text-blue-500"> Sign up</Link>
         </p>
       </div>
     </div>

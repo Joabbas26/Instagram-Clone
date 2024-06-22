@@ -9,8 +9,7 @@ import Search from './pages/Search.js';
 import CreatePost from './pages/CreatePost.js';
 import Notifications from './pages/Notifications.js';
 import NotFoundPage from './components/NotFoundPage.js';
-import { AuthProvider, useAuth } from './AuthContext';
-import PrivateRoute from './PrivateRoute';
+import { AuthProvider, useAuth } from './context/AuthContext.js';
 import './App.css';
 
 function App() {
@@ -25,9 +24,11 @@ function App() {
         <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Home />} />
+            {isAuthenticated && <Route path="/" element={<Home />} />}
+          {isAuthenticated && <Route path="/profile" element={<Profile />} />}
+          {/* Redirect to register if not authenticated */}
+          {!isAuthenticated && <Route path="*" element={<Register />} />}
             <Route path="/search" element={<Search />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path='/notFound' element={<NotFoundPage/>}/>

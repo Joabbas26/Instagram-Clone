@@ -7,23 +7,15 @@ const Home = () => {
 
   const [isHeartClicked, setIsHeartClicked] = useState(Array(5).fill(false));
   const [showComments, setShowComments] = useState(Array(5).fill(false));
+  const [Posts, setPosts] = useState("");
 
-    // Dummy data for profile
-    const posts = {
-      user: 'John',
-      id: 1,
-      image: 'https://cdn.pixabay.com/photo/2023/08/08/10/50/hot-wheels-8177051_1280.jpg',
-      likes: 34,
-      comment: "This is a comment",
-      comments: 10,
-    };
+
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const res = await axios.get('/api/posts');
-        // setPosts(res.data);
-        const Posts = res.data
+        setPosts(res.data);
       } catch (err) {
         console.error(err);
         console.log(Posts)
@@ -59,7 +51,7 @@ const Home = () => {
         <div className="flex flex-col items-center m-6">
 
            {/* Posts */}
-          {posts.map((post) => (
+          {Posts.map((post) => (
             <div key={post.id} className="bg-white mb-4 rounded-lg shadow-sm">
               <div className="p-4 flex justify-between items-center">
                 <div className="flex items-center space-x-2">
