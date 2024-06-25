@@ -6,22 +6,26 @@ const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
+    // Check if user already exists
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
     }
 
+    // Create new user
     user = new User({
       username,
       email,
       password,
     });
 
+    // Encrypt password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
 
     await user.save();
 
+    // Generate JWT token
     const payload = {
       user: {
         id: user.id,
@@ -43,20 +47,24 @@ const registerUser = async (req, res) => {
   }
 };
 
-const authUser = async (req, res) => {
+// Authenticate user and get token (login)
+const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    let user = await User.findOne({ email });
+    // Check if user exists
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
 
+    // Check password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
 
+    // Generate JWT token
     const payload = {
       user: {
         id: user.id,
@@ -78,7 +86,8 @@ const authUser = async (req, res) => {
   }
 };
 
-const getUserProfile = async (req, res) => {
+// Get user details
+const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
@@ -90,6 +99,6 @@ const getUserProfile = async (req, res) => {
 
 module.exports = {
   registerUser,
-  authUser,
-  getUserProfile,
+  loginUser,
+  getUser,
 };
