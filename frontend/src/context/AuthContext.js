@@ -28,16 +28,38 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
-  const login = async () => {
-    setIsAuthenticated(true)
+  const register = async ({ username, email, password }) => {
+    try {
+      const res = await axios.post('http://localhost:3000/api/users/register', { username, email, password });
+      localStorage.setItem('token', res.data.token);
+      setUser(res.data.user);
+      setIsAuthenticated(true);
+    } catch (err) {
+      console.error('Registration error:', err);
+      setIsAuthenticated(false);
+    }
+  };
+
+  const login = async ({ email, password }) => {
+    try {
+      const res = await axios.post('http://localhost:3000/api/auth/login', { email, password });
+      localStorage.setItem('token', res.data.token);
+      setUser(res.data.user);
+      setIsAuthenticated(true);
+    } catch (err) {
+      console.error('Login error:', err);
+      setIsAuthenticated(false);
+    }
   };
 
   const logout = () => {
-    setIsAuthenticated(false)
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, user, loading }}>
+    <AuthContext.Provider value={{ isAuthenticated, register, login, logout, user, loading }}>
       {children}
     </AuthContext.Provider>
   );

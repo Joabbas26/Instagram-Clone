@@ -1,6 +1,11 @@
 import React from 'react';
+import { useAuth } from '../context/AuthContext.js';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+  const {logout} = useAuth();
+  const navigate = useNavigate();
+
   // Dummy data for profile
   const user = {
     username: 'your_username',
@@ -16,6 +21,11 @@ const Profile = () => {
       // Add more post data as needed
     ]
   };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  }
 
   return (
     <div className="max-w-4xl mx-auto mt-6 bg-white p-4 rounded-lg shadow-sm">
@@ -48,6 +58,7 @@ const Profile = () => {
           </div>
         ))}
       </div>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };

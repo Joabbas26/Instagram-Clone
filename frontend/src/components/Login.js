@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext.js';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -9,17 +10,24 @@ const Login = () => {
   const [message, setMessage] = useState('');
 
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post('/api/auth/login', { email, password });
+      const response = await axios.post('http://localhost:3000/api/auth/login', { email, password });
+      if (response.data && response.data.token) {
+        setMessage('Login Successful');
+        login(); // Call login after successful login
+        navigate('/');
+      } else {
+        setMessage('Invalid email or password');
+      }
     } catch (err) {
-      setMessage('Invalid email or password');
+      console.error('Login error:', err);
+      setMessage('Login failed. Please try again.');
     }
-
-    login(); // Call login after successful login
   };
 
   return (

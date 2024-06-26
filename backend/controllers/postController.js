@@ -15,7 +15,7 @@ const createPost = async (req, res) => {
 };
 
 // Get all posts
-const getAllPosts = async (req, res) => {
+const getPosts = async (req, res) => {
   try {
     const posts = await Post.find().populate('user', ['username']);
     res.status(200).json(posts);

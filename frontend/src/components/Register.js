@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext.js';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -9,20 +10,23 @@ const Register = () => {
   const [message, setMessage] = useState('');
 
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post('/api/users/register', { username, email, password });
+      await axios.post('http://localhost:3000/api/users/register', { username, email, password });
       setMessage('Registration successful!');
+      login();
+      navigate('/');
     } catch (err) {
       setMessage('Registration has failed. Try again');
-      console.log(err);
+      console.error('Registration error:', err);
     }
-
-    login();// Call login after successful registration
   };
+
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
