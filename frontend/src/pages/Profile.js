@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useAuth } from '../context/AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const {logout} = useAuth();
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
 
   // Dummy data for profile
-  const user = {
+  const dummyUser = {
     username: 'your_username',
     fullname: 'Your Name',
     profilePic: 'https://via.placeholder.com/150',
@@ -26,6 +28,20 @@ const Profile = () => {
     logout();
     navigate('/login');
   }
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/users/profile', {
+          headers: { 'x-auth-token': localStorage.getItem('token') }
+        });
+        setUser(res.data);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto mt-6 bg-white p-4 rounded-lg shadow-sm">

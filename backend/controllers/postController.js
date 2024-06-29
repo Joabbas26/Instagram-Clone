@@ -27,7 +27,7 @@ const getPosts = async (req, res) => {
 const likePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-
+    
     if (post.likes.some(like => like.user.toString() === req.user.id)) {
       return res.status(400).json({ msg: 'Post already liked' });
     }

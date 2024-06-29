@@ -4,7 +4,10 @@ const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const multer = require('multer');
 const path = require('path');
-require('dotenv').config();
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 
 const app = express();
 
