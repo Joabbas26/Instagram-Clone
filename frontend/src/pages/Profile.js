@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios'
 import { useAuth } from '../context/AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 
@@ -47,18 +48,18 @@ const Profile = () => {
     <div className="max-w-4xl mx-auto mt-6 bg-white p-4 rounded-lg shadow-sm">
       <div className="flex items-center space-x-4 mb-4">
         <img
-          src={user.profilePic}
-          alt={user.username}
+          src={dummyUser.profilePic}
+          alt={dummyUser.username}
           className="w-20 h-20 rounded-full border-2 border-gray-300"
         />
         <div>
-          <div className="text-xl font-bold">{user.username}</div>
-          <div className="text-gray-500">{user.fullname}</div>
+          <div className="text-xl font-bold">{dummyUser.username}</div>
+          <div className="text-gray-500">{dummyUser.fullname}</div>
         </div>
       </div>
       <div className="flex justify-around mb-4">
         <div>
-          <span className="font-bold">{user.posts}</span> posts
+          <span className="font-bold">{dummyUser.posts}</span> posts
         </div>
       </div>
       <div className="grid grid-cols-3 gap-4">
