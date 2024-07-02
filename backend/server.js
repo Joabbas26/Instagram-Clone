@@ -4,9 +4,8 @@ const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const multer = require('multer');
 const path = require('path');
-const dotenv = require('dotenv');
-
-dotenv.config();
+const authMiddleware = require('./middleware/authMiddleware');
+require('dotenv').config();
 
 
 const app = express();
@@ -16,7 +15,10 @@ connectDB();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(fileUpload());
 
 // Configure Multer for file uploads
@@ -53,5 +55,5 @@ app.post('/api/posts', upload.single('image'), async (req, res) => {
   }
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

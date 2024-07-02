@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import axios from "axios"
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -10,10 +10,16 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
       try {
-        const res = await axios.get('/api/auth', {
+        const res = await axios.get('http://localhost:3000/api/auth', {
           headers: {
-            'x-auth-token': localStorage.getItem('token'),
+            'x-auth-token': token,
           },
         });
         setUser(res.data);
@@ -21,6 +27,7 @@ export const AuthProvider = ({ children }) => {
       } catch (err) {
         console.error(err);
         setIsAuthenticated(false);
+        localStorage.removeItem('token');
       } finally {
         setLoading(false);
       }
@@ -28,27 +35,29 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
-  const register = async ({ username, email, password }) => {
+  const register = async (userData) => {
     try {
-      const res = await axios.post('/api/users/register', { username, email, password });
+      const res = await axios.post('http://localhost:3000/api/register', userData);
       localStorage.setItem('token', res.data.token);
       setUser(res.data.user);
       setIsAuthenticated(true);
+      return res.data;
     } catch (err) {
-      console.error('Registration error:', err);
-      setIsAuthenticated(false);
+      console.error(err);
+      throw err;
     }
   };
 
-  const login = async ({ email, password }) => {
+  const login = async (credentials) => {
     try {
-      const res = await axios.post('/api/auth/login', { email, password });
+      const res = await axios.post('http://localhost:3000/api/login', credentials);
       localStorage.setItem('token', res.data.token);
       setUser(res.data.user);
       setIsAuthenticated(true);
+      return res.data;
     } catch (err) {
-      console.error('Login error:', err);
-      setIsAuthenticated(false);
+      console.error(err);
+      throw err;
     }
   };
 

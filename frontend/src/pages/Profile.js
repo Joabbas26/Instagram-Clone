@@ -33,7 +33,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/users/profile', {
+        const res = await axios.get('/api/users/profile', {
           headers: { 'x-auth-token': localStorage.getItem('token') }
         });
         setUser(res.data);
