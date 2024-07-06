@@ -3,8 +3,8 @@ const connectDB = require('./config/db');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const multer = require('multer');
+const fs = require('fs');
 const path = require('path');
-const authMiddleware = require('./middleware/authMiddleware');
 require('dotenv').config();
 
 
@@ -32,6 +32,12 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+
+// Ensure uploads folder exists
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
 
 // Serve static files from the uploads folder
 app.use('/uploads', express.static('uploads'));

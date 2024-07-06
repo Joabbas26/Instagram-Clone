@@ -16,13 +16,13 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      await axios.post('/api/auth/register', { username, email, password });
+      await axios.post('http://localhost:3000/api/users/register', { username, email, password });
       setMessage('Registration successful!');
       login();
       navigate('/');
     } catch (err) {
       setMessage('Registration has failed. Try again');
-      console.error('Registration error:', err);
+      console.error('Registration error:', err.response || err.message || err);
     }
   };
 
